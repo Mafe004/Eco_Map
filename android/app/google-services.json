@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "66029731424",
+    "project_id": "ecomaps-12a79",
+    "storage_bucket": "ecomaps-12a79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66029731424:android:375ffbb75888dfa2270d05",
+        "android_client_info": {
+          "package_name": "com.example.eco_mapa_3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByZvTi6Hbth6Bv1KSAdxr4fTm5J68G7f0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
