@@ -284,7 +284,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
           content: Column(
             children: [
               TextFormField(
-                controller: nombreContacto,
+                controller: NombreContacto,
                 decoration: const InputDecoration(labelText: 'Nombre de contacto'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -444,7 +444,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   Direccion.clear();
                   TipoArticulo.clear();
                   DescripcionEstado.clear();
-                  nombreContacto.clear();
+                  NombreContacto.clear();
                   TelefonoContacto.clear();
                   EmailContacto.clear();
                   TituloIntercambio.clear();
