@@ -73,7 +73,7 @@ class ViewReportPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildDetailRow('Tipo de lugar', data['tipoLugar']),
+                _buildDetailRow('Direccion', data['direccion']),
                 _buildDetailRow('Estado de las carreteras', data['estadoCarretera']),
                 _buildDetailRow('Servicios básicos', data['serviciosBasicos']),
                 _buildDetailRow('Estado de edificaciones', data['estadoEdificaciones']),
