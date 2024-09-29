@@ -29,14 +29,14 @@ class _FormExampleAppState extends State<FormExampleApp> {
 
   bool get isLastStep => currentStep == steps().length - 1;
 
-  final ubicacion = TextEditingController();
-  final tipoArticulo = TextEditingController();
+  final Direccion = TextEditingController();
+  final TipoArticulo = TextEditingController();
   final DescripcionEstado= TextEditingController();
-  final nombreContacto = TextEditingController();
-  final telefonoContacto = TextEditingController();
-  final emailContacto = TextEditingController();
-  final tituloIntercambio = TextEditingController();
-  final condicionIntercambio = TextEditingController();
+  final NombreContacto = TextEditingController();
+  final TelefonoContacto = TextEditingController();
+  final EmailContacto = TextEditingController();
+  final TituloIntercambio = TextEditingController();
+  final CondicionIntercambio = TextEditingController();
 
 
   List<File> selectedImages = [];
@@ -56,7 +56,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
       currentAddress = await _locationService.getAddressFromCoordinates(
           currentPosition!.latitude, currentPosition!.longitude);
       setState(() {
-        ubicacion.text = currentAddress ?? '';
+        Direccion.text = currentAddress ?? '';
       });
     } catch (e) {
       print('Error getting location: $e');
@@ -78,15 +78,14 @@ class _FormExampleAppState extends State<FormExampleApp> {
               'userId': user.uid,
               'userName': userName,
               // Guardar el nombre del usuario en el informe
-              'ubicacion': ubicacion.text,
-              'Descripcion': tipoArticulo.text,
-              'tipoLugar': DescripcionEstado.text,
-              'estadoCarretera': nombreContacto.text,
-              'serviciosBasicos': telefonoContacto.text,
-              'estadoEdificaciones': emailContacto.text,
-              'calidadAgua': tituloIntercambio.text,
-              'fuentesAgua': ubicacion.text,
-              'problemasAgua': condicionIntercambio.text,
+              'Direccion': Direccion.text,
+              'TipoArticulo': TipoArticulo.text,
+              'DescripcionEstado': DescripcionEstado.text,
+              'NombreContacto': NombreContacto.text,
+              'TelefonoContacto': TelefonoContacto.text,
+              'EmailContacto': EmailContacto.text,
+              'TituloIntercambio': TituloIntercambio.text,
+              'CondicionIntercambio': CondicionIntercambio.text,
               'images': selectedImages.map((image) => image.path).toList(),
 
             };
@@ -244,7 +243,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                 TextFormField(
                   enabled: false,
                   // Deshabilitar el campo
-                  controller: ubicacion,
+                  controller: Direccion,
                   // Usar el controlador para la dirección
                   decoration: const InputDecoration(labelText: 'Dirección'),
                   validator: (value) {
@@ -255,7 +254,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   },
                 ),
                 TextFormField(
-                  controller: tipoArticulo,
+                  controller: TipoArticulo,
                   decoration: const InputDecoration(labelText: 'Tipo de articulo'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -295,7 +294,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                 },
               ),
               TextFormField(
-                controller: telefonoContacto,
+                controller: TelefonoContacto,
                 decoration: const InputDecoration(labelText: 'Telefono de contacto'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -305,7 +304,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                 },
               ),
               TextFormField(
-                controller: emailContacto,
+                controller: EmailContacto,
                 decoration: const InputDecoration(
                     labelText: 'Email de contacto'),
                 validator: (value) {
@@ -325,7 +324,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
           content: Column(
             children: [
               TextFormField(
-                controller: tituloIntercambio,
+                controller: TituloIntercambio,
                 decoration: const InputDecoration(
                     labelText: 'Titulo de intercambio'),
                 validator: (value) {
@@ -335,19 +334,20 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   return null;
                 },
               ),
+             //
+          //TextFormField(
+              //  controller: ubicacion,
+               // decoration: const InputDecoration(
+                  // labelText: 'Puntos de ubicación cercanas'),
+              //  validator: (value) {
+                 // if (value == null || value.isEmpty) {
+                //    return 'Los puntos de ubicacion son obligatorias';
+                //  }
+                 // return null;
+           //     },
+             // ),
               TextFormField(
-                controller: ubicacion,
-                decoration: const InputDecoration(
-                    labelText: 'Puntos de ubicación cercanas'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Los puntos de ubicacion son obligatorias';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: condicionIntercambio,
+                controller: CondicionIntercambio,
                 decoration: const InputDecoration(
                     labelText: 'Condiciones de intercambio'),
                 validator: (value) {
@@ -441,15 +441,15 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   isComplete = false;
                   currentStep = 0;
                   selectedImages.clear();
-                  ubicacion.clear();
-                  tipoArticulo.clear();
+                  Direccion.clear();
+                  TipoArticulo.clear();
                   DescripcionEstado.clear();
                   nombreContacto.clear();
-                  telefonoContacto.clear();
-                  emailContacto.clear();
-                  tituloIntercambio.clear();
-                  ubicacion.clear();
-                  condicionIntercambio.clear();
+                  TelefonoContacto.clear();
+                  EmailContacto.clear();
+                  TituloIntercambio.clear();
+                  Direccion.clear();
+                  CondicionIntercambio.clear();
                 });
               },
               child: const Text('Nuevo Trueque'),
