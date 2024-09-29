@@ -483,7 +483,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: details.onStepContinue,
-                      child: Text(isLastStep ? 'Confirmar' : 'Siguiente'),
+                      child: Text(isLastStep ? 'CConfirmar' : 'Siguiente'),
                     ),
                   ),
                   if (!isFirstStep)
