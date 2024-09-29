@@ -71,7 +71,7 @@ class MyReportsPage extends StatelessWidget {
 
         return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('Reportes')
+              .collection('Trueque')
               .where('userId', isEqualTo: user.uid)
               .snapshots(),
           builder: (context, snapshot) {
