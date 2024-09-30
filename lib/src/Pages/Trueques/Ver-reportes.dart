@@ -11,7 +11,7 @@ class ViewReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = reportSnapshot.data() as Map<String, dynamic>;
     final List<String> imagePaths = List<String>.from(data['images'] ?? []);
-    final timestamp = (data['timestamp'] as Timestamp).toDate();
+
 
     return Scaffold(
       appBar: AppBar(
@@ -56,11 +56,7 @@ class ViewReportPage extends StatelessWidget {
             _buildInfoRow('TituloIntercambio', data['TituloIntercambio']),
             _buildInfoRow('CondicionIntercambio', data['CondicionIntercambio']),
             const SizedBox(height: 16),
-            Text(
-              'Fecha y Hora:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(timestamp.toString()), // Muestra la fecha y hora
+
           ],
         ),
       ),
@@ -88,6 +84,3 @@ class ViewReportPage extends StatelessWidget {
     );
   }
 }
-
-
-

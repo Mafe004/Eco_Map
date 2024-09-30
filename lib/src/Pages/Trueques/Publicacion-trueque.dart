@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'Ver-reportes.dart';
 
 class InfoPage extends StatefulWidget {
@@ -25,7 +24,7 @@ class _InfoPageState extends State<InfoPage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Trueque'),
+        title: const Text('Usuarios'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -83,7 +82,7 @@ class MyReportsPage extends StatelessWidget {
             }
             final reports = snapshot.data?.docs ?? [];
             if (reports.isEmpty) {
-              return const Center(child: Text('No hay reportes disponibles.'));
+              return const Center(child: Text('No hay Trueques disponibles.'));
             }
             return ListView.builder(
               itemCount: reports.length,
@@ -91,7 +90,7 @@ class MyReportsPage extends StatelessWidget {
                 final data = reports[index].data() as Map<String, dynamic>;
                 final List<String> imagePaths = List<String>.from(data['images'] ?? []);
 
-                final timestamp = (data['timestamp'] as Timestamp).toDate();
+
 
 
                 return GestureDetector(
@@ -177,7 +176,7 @@ class GeneralReportsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('Reportes').snapshots(),
+      stream: FirebaseFirestore.instance.collection('Trueque').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -194,8 +193,6 @@ class GeneralReportsPage extends StatelessWidget {
           itemBuilder: (context, index) {
             final data = reports[index].data() as Map<String, dynamic>;
             final List<String> imagePaths = List<String>.from(data['images'] ?? []);
-
-            final timestamp = (data['timestamp'] as Timestamp).toDate();
 
 
             // Obtener el nombre de usuario del informe
@@ -234,10 +231,10 @@ class GeneralReportsPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Ubicación: ${data['ubicacion'] ?? 'No disponible'}',
+                        'Ubicación: ${data['Direccion'] ?? 'No disponible'}',
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      Text('Descripción: ${data['Descripcion'] ?? 'No disponible'}'),
+                      Text('Descripción: ${data['DescripcionEstado'] ?? 'No disponible'}'),
                       const SizedBox(height: 8),
 
                       if (imagePaths.isNotEmpty)
