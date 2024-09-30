@@ -77,7 +77,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
             final reportData = {
               'userId': user.uid,
               'userName': userName,
-              // Guardar el nombre del usuario en el informe
+              // Guardar el nombre del usuario en el informee
               'ubicacion': ubicacion.text,
               'Descripcion': tipoArticulo.text,
               'tipoLugar': DescripcionEstado.text,
