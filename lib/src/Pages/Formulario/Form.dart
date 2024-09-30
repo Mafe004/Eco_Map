@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:io';
+
 import '../../Servisios/Image-Helper.dart';
 import '../../Servisios/Image-Ser.dart';
 import '../../Servisios/Localizacion.dart';
@@ -80,7 +82,9 @@ class _FormExampleAppState extends State<FormExampleApp> {
             // Crear el mapa con los datos del reporte
             final reportData = {
               'userId': user.uid,
+
               'userName': userName,// Guardar el nombre del usuario en el informe
+
               'Direccion': Direccion.text,
               'TipoArticulo': TipoArticulo.text,
               'DescripcionEstado': DescripcionEstado.text,
@@ -211,7 +215,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
             return AlertDialog(
               title: Text('Error'),
               content: Text(
-                  'La imagen seleccionada tiene una resolución mayor que 1024x1024 y no puede ser agregada.'),
+                  'La imagen seleccionada tiene una resolución mayor que 3000x5000 y no puede ser agregada.'),
               actions: [
                 TextButton(
                   onPressed: () {
