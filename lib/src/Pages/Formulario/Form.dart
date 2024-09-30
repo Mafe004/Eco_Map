@@ -241,8 +241,8 @@ class _FormExampleAppState extends State<FormExampleApp> {
             child: Column(
               children: [
                 TextFormField(
-                  enabled: false,
-                  // Deshabilitar el campo
+                  enabled: true,
+                  // habilitar el campo
                   controller: Direccion,
                   // Usar el controlador para la dirección
                   decoration: const InputDecoration(labelText: 'Dirección'),
@@ -462,13 +462,20 @@ class _FormExampleAppState extends State<FormExampleApp> {
         steps: steps(),
         currentStep: currentStep,
         onStepContinue: () {
-          if (_formKey.currentState!.validate()) {
+          //validar el formulario del paso actual
+          if (_formKey.currentState!.validate())
+          // si estamos en el ultimo pso, guardar los datos
+          {
             if (isLastStep) {
               saveDataToFirestore();
               setState(() => isComplete = true);
             } else {
+              // si no es el ultimo paso, avanzar al siguiente paso
               setState(() => currentStep += 1);
             }
+          }else{
+            //si hay errores en le formulario, mostrar el rimer error encontrado
+            _formKey.currentState!.validate();
           }
         },
         onStepCancel: isFirstStep
@@ -480,19 +487,23 @@ class _FormExampleAppState extends State<FormExampleApp> {
               padding: const EdgeInsets.only(top: 16),
               child: Row(
                 children: [
+                  //Boton "atras" primero
+                  if(!isFirstStep)
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: details.onStepContinue,
-                      child: Text(isLastStep ? 'Confirmar' : 'Siguiente'),
+                      onPressed: details.onStepCancel,
+                      child: const Text( 'Atras'),
                     ),
                   ),
                   if (!isFirstStep)
-                    const SizedBox(width: 12),
-                  if (!isFirstStep)
+                    const SizedBox(width: 12),// espacio entre los botones
+
+                  //Boton "siguinte" o "confirmar"
+                  //if (!isFirstStep)
                     Expanded(
                       child: ElevatedButton(
                         onPressed: details.onStepCancel,
-                        child: const Text('Atrás'),
+                        child: Text(isLastStep ?'Confirmar' : 'Siguiente'),
                       ),
                     ),
                 ],
