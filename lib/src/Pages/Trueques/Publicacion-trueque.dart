@@ -25,7 +25,7 @@ class _InfoPageState extends State<InfoPage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Usuarios'),
+        title: const Text('Trueque'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -71,7 +71,7 @@ class MyReportsPage extends StatelessWidget {
 
         return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('Trueques')
+              .collection('Trueque')
               .where('userId', isEqualTo: user.uid)
               .snapshots(),
           builder: (context, snapshot) {
@@ -83,7 +83,7 @@ class MyReportsPage extends StatelessWidget {
             }
             final reports = snapshot.data?.docs ?? [];
             if (reports.isEmpty) {
-              return const Center(child: Text('No hay Trueques disponibles.'));
+              return const Center(child: Text('No hay reportes disponibles.'));
             }
             return ListView.builder(
               itemCount: reports.length,
