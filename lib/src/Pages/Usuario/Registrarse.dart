@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
-                  Icons.water,
+                  Icons.location_on,
                   size: 100,
                 ),
                 const SizedBox(height: 50),
