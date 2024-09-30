@@ -1,30 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
+
 
 class ViewReportPage extends StatelessWidget {
   final DocumentSnapshot reportSnapshot;
 
-  const ViewReportPage({Key? key, required this.reportSnapshot}) : super(key: key);
+  const ViewReportPage({super.key, required this.reportSnapshot});
 
   @override
   Widget build(BuildContext context) {
     final data = reportSnapshot.data() as Map<String, dynamic>;
     final List<String> imagePaths = List<String>.from(data['images'] ?? []);
-
     final timestamp = (data['timestamp'] as Timestamp).toDate();
-
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reporte'),
+        title: Text('Trueque'),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Mostrar las imágenes
             if (imagePaths.isNotEmpty)
               SizedBox(
                 height: 200,
@@ -36,8 +34,8 @@ class ViewReportPage extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.file(
-                          File(imagePaths[index]),
+                        child: Image.network(
+                          imagePaths[index], // Cambié a Image.network
                           width: 200,
                           height: 150,
                           fit: BoxFit.cover,
@@ -48,54 +46,28 @@ class ViewReportPage extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 16),
-            Text(
-              'Descripción:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(data['Descripcion'] ?? 'No disponible'),
-            const SizedBox(height: 16),
-            Text(
-              'Ubicación:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(data['ubicacion'] ?? 'No disponible'),
+            // Mostrar información de la publicación
+            _buildInfoRow('Direccion', data['Direccion']),
+            _buildInfoRow('TipoArticulo', data['TipoArticulo']),
+            _buildInfoRow('DescripcionEstado', data['DescripcionEstado']),
+            _buildInfoRow('NombreContacto', data['NombreContacto']),
+            _buildInfoRow('TelefonoContacto', data['TelefonoContacto']),
+            _buildInfoRow('EmailContacto', data['EmailContacto']),
+            _buildInfoRow('TituloIntercambio', data['TituloIntercambio']),
+            _buildInfoRow('CondicionIntercambio', data['CondicionIntercambio']),
             const SizedBox(height: 16),
             Text(
               'Fecha y Hora:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-
-            const SizedBox(height: 16),
-            Text(
-              'Más detalles:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildDetailRow('Tipo de lugar', data['tipoLugar']),
-                _buildDetailRow('Estado de las carreteras', data['estadoCarretera']),
-                _buildDetailRow('Servicios básicos', data['serviciosBasicos']),
-                _buildDetailRow('Estado de edificaciones', data['estadoEdificaciones']),
-                _buildDetailRow('Calidad del agua', data['calidadAgua']),
-                _buildDetailRow('Fuentes de agua', data['fuentesAgua']),
-                _buildDetailRow('Problemas de agua', data['problemasAgua']),
-                _buildDetailRow('Tipo de suministro de agua', data['tipoSuministros']),
-                _buildDetailRow('Estado de instalaciones de agua', data['estadoInstalaciones']),
-                _buildDetailRow('Cortes de agua', data['cortesAgua']),
-                _buildDetailRow('Tipo de alcantarillado', data['tipoAlcantarillado']),
-                _buildDetailRow('Estado del alcantarillado', data['estadoAlcantarillado']),
-                _buildDetailRow('Problemas específicos', data['problemasEspecificos']),
-                _buildDetailRow('Comentarios adicionales', data['comentarios']),
-              ],
-            ),
+            Text(timestamp.toString()), // Muestra la fecha y hora
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDetailRow(String label, String? value) {
+  Widget _buildInfoRow(String label, String? value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -116,4 +88,6 @@ class ViewReportPage extends StatelessWidget {
     );
   }
 }
+
+
 
