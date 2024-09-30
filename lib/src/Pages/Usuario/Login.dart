@@ -1,5 +1,3 @@
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
@@ -13,86 +11,116 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>(); // Agregar clave global para validar el formulario
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  String? _errorText; // Variable para mostrar mensajes de error
+  String? _errorText;
 
   Future<void> _signIn() async {
     if (_formKey.currentState!.validate()) {
-      // Validar los campos de correo electrónico y contraseña
       try {
         final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
         );
         final User? user = userCredential.user;
-
         if (user != null) {
-          // Verifica si el usuario está en la colección de Entidades
-          final entityDoc = await FirebaseFirestore.instance.collection('DatosEntidad').doc(user.uid).get();
-          if (entityDoc.exists) {
-
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Cambiar a la página de entidad
-            );
-          } else {
-            // Verifica si el usuario está en la colección de Usuarios
-            final userDoc = await FirebaseFirestore.instance.collection('Usuarios').doc(user.uid).get();
-            if (userDoc.exists) {
-              // Navega a la página específica de usuarios
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Cambiar a HomePage
-              );
-            } else {
-              setState(() {
-                _errorText = 'No se encontró el tipo de usuario.';
-              });
-            }
-          }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
         }
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          if (e.code == 'user-not-found') {
+            _errorText = 'No se encontró ningún usuario con ese correo.';
+          } else if (e.code == 'wrong-password') {
+            _errorText = 'Contraseña incorrecta. Intenta de nuevo.';
+          } else if (e.code == 'invalid-email') {
+            _errorText = 'Correo electrónico no válido.';
+          }
+        });
       } catch (e) {
         setState(() {
-          _errorText = 'Error al iniciar sesión. Por favor, verifica tus credenciales.';
+          _errorText = 'Error desconocido. Inténtalo de nuevo.';
         });
-        print(e.toString());
       }
     }
   }
 
-  Future<void> _resetPassword() async {
-    if (emailController.text.isEmpty) {
-      setState(() {
-        _errorText = 'Por favor, ingresa tu correo electrónico para restablecer la contraseña.';
-      });
-      return;
-    }
+  // Función para mostrar el diálogo de "Olvidaste tu contraseña"
+  Future<void> _showPasswordResetDialog() async {
+    final resetEmailController = TextEditingController();
 
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
-      setState(() {
-        _errorText = 'Se ha enviado un correo para restablecer la contraseña.';
-      });
-    } catch (e) {
-      setState(() {
-        _errorText = 'Error al enviar el correo de restablecimiento de contraseña.';
-      });
-      print(e.toString());
-    }
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Restablecer contraseña'),
+          content: TextField(
+            controller: resetEmailController,
+            decoration: const InputDecoration(
+              labelText: 'Ingresa tu correo electrónico',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Enviar'),
+              onPressed: () async {
+                if (resetEmailController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Por favor ingresa tu correo.')),
+                  );
+                } else {
+                  try {
+                    await FirebaseAuth.instance.sendPasswordResetEmail(
+                      email: resetEmailController.text.trim(),
+                    );
+                    Navigator.of(context).pop(); // Cerrar el diálogo
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Se envió un correo para restablecer tu contraseña.')),
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    Navigator.of(context).pop(); // Cerrar el diálogo
+                    if (e.code == 'user-not-found') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('No se encontró ningún usuario con ese correo.')),
+                      );
+                    } else if (e.code == 'invalid-email') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Correo electrónico no válido.')),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: ${e.message}')),
+                      );
+                    }
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
+      backgroundColor: Colors.green,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Form(
-            key: _formKey, // Usar la clave global para validar el formulario
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -101,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   size: 100,
                 ),
                 const SizedBox(height: 50),
-                const Text("Bienvenido a Eco-Mapa "),
+                const Text("Eco Mapa"),
                 const SizedBox(height: 25),
                 TextFormField(
                   controller: emailController,
@@ -145,7 +173,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                if (_errorText != null) // Mostrar mensaje de error si existe
+                const SizedBox(height: 10),
+                if (_errorText != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
@@ -153,7 +182,6 @@ class _LoginPageState extends State<LoginPage> {
                       style: const TextStyle(color: Colors.red),
                     ),
                   ),
-                const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: _signIn,
                   child: const Text('Ingresar'),
@@ -162,14 +190,10 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "¿No tienes usuario?",
-                      style: TextStyle(),
-                    ),
+                    const Text("¿No tienes usuario?"),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: () {
-                        // Navegar a la página de registro cuando se toque el texto
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const RegisterPage()),
@@ -187,41 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
-                  onTap: () {
-                    // Navegar a la página de restablecimiento de contraseña cuando se toque el texto
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Restablecer contraseña"),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextFormField(
-                              controller: emailController,
-                              decoration: const InputDecoration(
-                                hintText: 'Correo electrónico',
-                              ),
-                            ),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("Cancelar"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              _resetPassword();
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("Enviar"),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                  onTap: _showPasswordResetDialog,
                   child: const Text(
                     "¿Olvidaste tu contraseña?",
                     style: TextStyle(
@@ -238,3 +228,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
