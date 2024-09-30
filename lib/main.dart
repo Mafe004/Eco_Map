@@ -13,7 +13,26 @@ import 'src/Pages/Usuario/Login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Verificar datos de Firestore
+  await _loadMarkers(); // Carga los marcadores antes de iniciar la app
+
   runApp(const MyApp());
+}
+
+Future<void> _loadMarkers() async {
+  try {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot snapshot = await firestore.collection('Marcadores').get();
+
+    print("Documentos recuperados: ${snapshot.docs.length}"); // Imprimir cantidad de documentos
+    for (var doc in snapshot.docs) {
+      GeoPoint geoPoint = doc['Ubicacion'];
+      print('Marcador: ${doc.id}, Ubicacion: ${geoPoint.latitude}, ${geoPoint.longitude}'); // Depuración
+    }
+  } catch (e) {
+    print("Error al cargar marcadores: $e"); // Captura de errores
+  }
 }
 
 class MyApp extends StatelessWidget {
