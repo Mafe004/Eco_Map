@@ -338,7 +338,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
               //TextFormField(
               //  controller: ubicacion,
               // decoration: const InputDecoration(
-              // labelText: 'Puntos de ubicación cercanas'),
+              // labelText: 'Puntos de ubicacion cercanas'),
               //  validator: (value) {
               // if (value == null || value.isEmpty) {
               //    return 'Los puntos de ubicacion son obligatorias';
