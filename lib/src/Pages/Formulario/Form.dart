@@ -199,7 +199,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
       final width = int.parse(resolution.split('x')[0]);
       final height = int.parse(resolution.split('x')[1]);
 
-      if (width > 800 || height > 800) {
+      if (width > 3000 || height > 5000) {
         // Si la resolución de la imagen es mayor que 1024x1024, mostrar un mensaje de error.
         showDialog(
           context: context,
@@ -320,7 +320,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
         Step(
           state: currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 2,
-          title: const Text('trueque'),
+          title: const Text('Trueque'),
           content: Column(
             children: [
               TextFormField(
@@ -365,7 +365,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
         Step(
           state: currentStep > 5 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 5,
-          title: const Text('informacion usuario'),
+          title: const Text('Informacion usuario'),
           content: Column(
             children: [
               ElevatedButton(
@@ -487,25 +487,21 @@ class _FormExampleAppState extends State<FormExampleApp> {
               padding: const EdgeInsets.only(top: 16),
               child: Row(
                 children: [
-                  //Boton "atras" primero
-                  if(!isFirstStep)
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: details.onStepCancel,
-                        child: const Text( 'Atras'),
-                      ),
-                    ),
-                  if (!isFirstStep)
-                    const SizedBox(width: 12),// espacio entre los botones
-
-                  //Boton "siguinte" o "confirmar."
-                  //if (!isFirstStep)
                   Expanded(
                     child: ElevatedButton(
                       onPressed: details.onStepCancel,
-                      child: Text(isLastStep ?'Confirmar' : 'Siguiente'),
+                      child: const Text('Atrás'),
                     ),
                   ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      child: Text(isLastStep ? 'Confirmar' : 'Siguiente'),
+                    ),
+                  ),
+                  if (!isFirstStep)
+                    const SizedBox(width: 12),
+
                 ],
               ),
             ),

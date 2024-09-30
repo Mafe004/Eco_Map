@@ -38,7 +38,7 @@ class _BnavigatorState extends State<Bnavigator> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.add),
-          label: 'Repo',
+          label: 'Form',
 
         ),
         BottomNavigationBarItem(
