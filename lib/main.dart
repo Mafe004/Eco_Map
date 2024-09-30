@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eco_mapa_3/src/Routes/Rutas.dart';
+import 'package:eco_mapa_3/src/Routes/rutas.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'src/Components/Boton_Navegacion.dart';
+import 'src/Components/boton_navegacion.dart';
 import 'src/Pages/Usuario/Login.dart';
 
 
@@ -25,22 +25,22 @@ Future<void> _loadMarkers() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     QuerySnapshot snapshot = await firestore.collection('Marcadores').get();
 
-    print("Documentos recuperados: ${snapshot.docs.length}"); // Imprimir cantidad de documentos
+    debugPrint("Documentos recuperados: ${snapshot.docs.length}"); // Imprimir cantidad de documentos
     for (var doc in snapshot.docs) {
       GeoPoint geoPoint = doc['Ubicacion'];
-      print('Marcador: ${doc.id}, Ubicacion: ${geoPoint.latitude}, ${geoPoint.longitude}'); // Depuración
+      debugPrint('Marcador: ${doc.id}, Ubicacion: ${geoPoint.latitude}, ${geoPoint.longitude}'); // Depuración
     }
   } catch (e) {
-    print("Error al cargar marcadores: $e"); // Captura de errores
+    debugPrint("Error al cargar marcadores: $e"); // Captura de errores
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Eco-Mapa',
       home: AuthenticationWrapper(),
     );
@@ -48,15 +48,17 @@ class MyApp extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({super.key}); // Añadir `const` y `key`
+
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-    return user != null ? const HomePage() : LoginPage();
+    return user != null ? const HomePage() : const LoginPage();
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
         future: getUserName(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else {
             return Routes(index: index, userName: snapshot.data ?? "Usuario sin nombre");
           }

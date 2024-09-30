@@ -5,10 +5,10 @@ class Bnavigator extends StatefulWidget {
   const Bnavigator({super.key, required this.currentIndex});
 
   @override
-  _BnavigatorState createState() => _BnavigatorState();
+  BnavigatorState createState() => BnavigatorState();
 }
 
-class _BnavigatorState extends State<Bnavigator> {
+class BnavigatorState extends State<Bnavigator> {
   int index = 0;
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  url_launcher: ^6.1.7    #Usar el paquete pdf
+  video_player: ^2.5.1   #Usar el paquete video_player
   firebase_core: ^3.5.0
   google_maps_flutter: ^2.9.0
   cloud_firestore: ^5.4.2
@@ -33,6 +35,8 @@ flutter:
   assets:
     - assets/images/beneficios/beneficios-del-reciclaje.jpg
     - assets/images/beneficios/grafico.png
-    - assets/images/separacion_residuos/istockphoto-1092504754.jpg
+    - assets/images/separacion_residuos/photo.jpg
     - assets/images/separacion_residuos/RECICLAJE.jpg
     - assets/images/separacion_residuos/recycle-bin.png
+    - assets/pdfs/guia_reciclaje.pdf
+    - assets/pdfs/reciclaje.pdf

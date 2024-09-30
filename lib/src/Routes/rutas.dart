@@ -9,7 +9,7 @@ class Routes extends StatelessWidget {
   final int index;
   final String userName;
 
-  const Routes({Key? key, required this.index, required this.userName}) : super(key: key);
+  const Routes({super.key, required this.index, required this.userName}); // Usamos super.key
 
   @override
   Widget build(BuildContext context) {
