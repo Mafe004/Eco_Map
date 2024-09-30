@@ -29,14 +29,14 @@ class _FormExampleAppState extends State<FormExampleApp> {
 
   bool get isLastStep => currentStep == steps().length - 1;
 
-  final ubicacion = TextEditingController();
-  final tipoArticulo = TextEditingController();
+  final Direccion = TextEditingController();
+  final TipoArticulo = TextEditingController();
   final DescripcionEstado= TextEditingController();
-  final nombreContacto = TextEditingController();
-  final telefonoContacto = TextEditingController();
-  final emailContacto = TextEditingController();
-  final tituloIntercambio = TextEditingController();
-  final condicionIntercambio = TextEditingController();
+  final NombreContacto = TextEditingController();
+  final TelefonoContacto = TextEditingController();
+  final EmailContacto = TextEditingController();
+  final TituloIntercambio = TextEditingController();
+  final CondicionIntercambio = TextEditingController();
 
 
   List<File> selectedImages = [];
@@ -56,7 +56,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
       currentAddress = await _locationService.getAddressFromCoordinates(
           currentPosition!.latitude, currentPosition!.longitude);
       setState(() {
-        ubicacion.text = currentAddress ?? '';
+        Direccion.text = currentAddress ?? '';
       });
     } catch (e) {
       print('Error getting location: $e');
@@ -77,16 +77,15 @@ class _FormExampleAppState extends State<FormExampleApp> {
             final reportData = {
               'userId': user.uid,
               'userName': userName,
-              // Guardar el nombre del usuario en el informee
-              'ubicacion': ubicacion.text,
-              'Descripcion': tipoArticulo.text,
-              'tipoLugar': DescripcionEstado.text,
-              'estadoCarretera': nombreContacto.text,
-              'serviciosBasicos': telefonoContacto.text,
-              'estadoEdificaciones': emailContacto.text,
-              'calidadAgua': tituloIntercambio.text,
-              'fuentesAgua': ubicacion.text,
-              'problemasAgua': condicionIntercambio.text,
+              // Guardar el nombre del usuario en el informe
+              'Direccion': Direccion.text,
+              'TipoArticulo': TipoArticulo.text,
+              'DescripcionEstado': DescripcionEstado.text,
+              'NombreContacto': NombreContacto.text,
+              'TelefonoContacto': TelefonoContacto.text,
+              'EmailContacto': EmailContacto.text,
+              'TituloIntercambio': TituloIntercambio.text,
+              'CondicionIntercambio': CondicionIntercambio.text,
               'images': selectedImages.map((image) => image.path).toList(),
 
             };
@@ -242,9 +241,9 @@ class _FormExampleAppState extends State<FormExampleApp> {
             child: Column(
               children: [
                 TextFormField(
-                  enabled: false,
-                  // Deshabilitar el campo
-                  controller: ubicacion,
+                  enabled: true,
+                  // habilitar el campo
+                  controller: Direccion,
                   // Usar el controlador para la dirección
                   decoration: const InputDecoration(labelText: 'Dirección'),
                   validator: (value) {
@@ -255,7 +254,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   },
                 ),
                 TextFormField(
-                  controller: tipoArticulo,
+                  controller: TipoArticulo,
                   decoration: const InputDecoration(labelText: 'Tipo de articulo'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -285,7 +284,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
           content: Column(
             children: [
               TextFormField(
-                controller: nombreContacto,
+                controller: NombreContacto,
                 decoration: const InputDecoration(labelText: 'Nombre de contacto'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -295,7 +294,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                 },
               ),
               TextFormField(
-                controller: telefonoContacto,
+                controller: TelefonoContacto,
                 decoration: const InputDecoration(labelText: 'Telefono de contacto'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -305,7 +304,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
                 },
               ),
               TextFormField(
-                controller: emailContacto,
+                controller: EmailContacto,
                 decoration: const InputDecoration(
                     labelText: 'Email de contacto'),
                 validator: (value) {
@@ -325,7 +324,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
           content: Column(
             children: [
               TextFormField(
-                controller: tituloIntercambio,
+                controller: TituloIntercambio,
                 decoration: const InputDecoration(
                     labelText: 'Titulo de intercambio'),
                 validator: (value) {
@@ -335,19 +334,20 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   return null;
                 },
               ),
+              //
+              //TextFormField(
+              //  controller: ubicacion,
+              // decoration: const InputDecoration(
+              // labelText: 'Puntos de ubicación cercanas'),
+              //  validator: (value) {
+              // if (value == null || value.isEmpty) {
+              //    return 'Los puntos de ubicacion son obligatorias';
+              //  }
+              // return null;
+              //     },
+              // ),
               TextFormField(
-                controller: ubicacion,
-                decoration: const InputDecoration(
-                    labelText: 'Puntos de ubicación cercanas'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Los puntos de ubicacion son obligatorias';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: condicionIntercambio,
+                controller: CondicionIntercambio,
                 decoration: const InputDecoration(
                     labelText: 'Condiciones de intercambio'),
                 validator: (value) {
@@ -441,15 +441,15 @@ class _FormExampleAppState extends State<FormExampleApp> {
                   isComplete = false;
                   currentStep = 0;
                   selectedImages.clear();
-                  ubicacion.clear();
-                  tipoArticulo.clear();
+                  Direccion.clear();
+                  TipoArticulo.clear();
                   DescripcionEstado.clear();
-                  nombreContacto.clear();
-                  telefonoContacto.clear();
-                  emailContacto.clear();
-                  tituloIntercambio.clear();
-                  ubicacion.clear();
-                  condicionIntercambio.clear();
+                  NombreContacto.clear();
+                  TelefonoContacto.clear();
+                  EmailContacto.clear();
+                  TituloIntercambio.clear();
+                  Direccion.clear();
+                  CondicionIntercambio.clear();
                 });
               },
               child: const Text('Nuevo Trueque'),
@@ -462,13 +462,20 @@ class _FormExampleAppState extends State<FormExampleApp> {
         steps: steps(),
         currentStep: currentStep,
         onStepContinue: () {
-          if (_formKey.currentState!.validate()) {
+          //validar el formulario del paso actual
+          if (_formKey.currentState!.validate())
+            // si estamos en el ultimo pso, guardar los datos
+              {
             if (isLastStep) {
               saveDataToFirestore();
               setState(() => isComplete = true);
             } else {
+              // si no es el ultimo paso, avanzar al siguiente paso
               setState(() => currentStep += 1);
             }
+          }else{
+            //si hay errores en le formulario, mostrar el rimer error encontrado
+            _formKey.currentState!.validate();
           }
         },
         onStepCancel: isFirstStep
@@ -480,21 +487,25 @@ class _FormExampleAppState extends State<FormExampleApp> {
               padding: const EdgeInsets.only(top: 16),
               child: Row(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: details.onStepContinue,
-                      child: Text(isLastStep ? 'Confirmar' : 'Siguiente'),
-                    ),
-                  ),
-                  if (!isFirstStep)
-                    const SizedBox(width: 12),
-                  if (!isFirstStep)
+                  //Boton "atras" primero
+                  if(!isFirstStep)
                     Expanded(
                       child: ElevatedButton(
                         onPressed: details.onStepCancel,
-                        child: const Text('Atrás'),
+                        child: const Text( 'Atras'),
                       ),
                     ),
+                  if (!isFirstStep)
+                    const SizedBox(width: 12),// espacio entre los botones
+
+                  //Boton "siguinte" o "confirmar."
+                  //if (!isFirstStep)
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: details.onStepCancel,
+                      child: Text(isLastStep ?'Confirmar' : 'Siguiente'),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -502,4 +513,3 @@ class _FormExampleAppState extends State<FormExampleApp> {
     );
   }
 }
-
