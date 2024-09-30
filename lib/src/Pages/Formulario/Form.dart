@@ -70,16 +70,21 @@ class _FormExampleAppState extends State<FormExampleApp> {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         try {
+          // Obtener los datos del usuario desde la colección 'Usuarios'
           final userSnapshot = await FirebaseFirestore.instance.collection(
               'Usuarios').doc(user.uid).get();
           if (userSnapshot.exists) {
             final userData = userSnapshot.data() as Map<String, dynamic>;
             final userName = userData['name'] ??
                 'Usuario Desconocido'; // Obtener el nombre de usuario o establecer uno predeterminado
+
+
+            // Crear el mapa con los datos del reporte
             final reportData = {
               'userId': user.uid,
-              'userName': userName,
-              // Guardar el nombre del usuario en el informe
+
+              'userName': userName,// Guardar el nombre del usuario en el informe
+
               'Direccion': Direccion.text,
               'TipoArticulo': TipoArticulo.text,
               'DescripcionEstado': DescripcionEstado.text,
@@ -91,20 +96,21 @@ class _FormExampleAppState extends State<FormExampleApp> {
               'images': selectedImages.map((image) => image.path).toList(),
 
             };
+            // Guardar el reporte en Firestore
             await _firestoreService.saveReport(reportData);
-            print('Data added successfully!');
+            print('Datos añadidos exitosamente!');
           } else {
-            print('User data not found in Firestore.');
+            print('Datos del usuario no encontrados en Firestore.');
           }
         } catch (error) {
-          print('Failed to fetch user data: $error');
+          print('Error al obtener los datos del usuario: $error');
         }
       } else {
-        print('No user currently signed in.');
+        print('No hay un usuario autenticado actualmente.');
       }
     }
     else {
-      print('Current position is null. Cannot save data.');
+      print('La posición actual es nula. No se pueden guardar datos.');
     }
   }
 

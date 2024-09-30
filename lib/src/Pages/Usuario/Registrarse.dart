@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Intenta guardar los datos del usuario en Firestore
+        // Intenta guardar los datos del usuario en Firestore del firebase
         await FirebaseFirestore.instance.collection('Usuarios').doc(user.uid).set({
           'name': nameController.text,
           'phoneNumber': phoneNumberController.text,
@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
-                  Icons.water,
+                  Icons.location_on,
                   size: 100,
                 ),
                 const SizedBox(height: 50),
