@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:io';
-import '../../Servicios/Image-Helper.dart';
-import '../../Servicios/Image-Ser.dart';
-import '../../Servicios/Localizacion.dart';
-import '../../Servicios/strore.dart';
+import '../../Servisios/Image-Helper.dart';
+import '../../Servisios/Image-Ser.dart';
+import '../../Servisios/Localizacion.dart';
+import '../../Servisios/strore.dart';
 
 
 class FormExampleApp extends StatefulWidget {
