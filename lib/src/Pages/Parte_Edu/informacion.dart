@@ -12,6 +12,7 @@ class InformacionPage extends StatelessWidget {
       await launchUrl(pdfUri);
     } else {
       throw 'No se puede abrir $pdfUri';
+
     }
   }
 

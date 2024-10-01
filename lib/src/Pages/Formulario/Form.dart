@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:io';
-
-import '../../Servisios/Image-Helper.dart';
-import '../../Servisios/Image-Ser.dart';
-import '../../Servisios/Localizacion.dart';
-import '../../Servisios/strore.dart';
+import '../../Servicios/Image-Helper.dart';
+import '../../Servicios/Image-Ser.dart';
+import '../../Servicios/Localizacion.dart';
+import '../../Servicios/strore.dart';
 
 
 class FormExampleApp extends StatefulWidget {
@@ -207,7 +205,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
       final width = int.parse(resolution.split('x')[0]);
       final height = int.parse(resolution.split('x')[1]);
 
-      if (width > 3000 || height > 5000) {
+      if (width > 800 || height > 800) {
         // Si la resolución de la imagen es mayor que 1024x1024, mostrar un mensaje de error.
         showDialog(
           context: context,
@@ -215,7 +213,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
             return AlertDialog(
               title: Text('Error'),
               content: Text(
-                  'La imagen seleccionada tiene una resolución mayor que 3000x5000 y no puede ser agregada.'),
+                  'La imagen seleccionada tiene una resolución mayor que 1024x1024 y no puede ser agregada.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -517,3 +515,4 @@ class _FormExampleAppState extends State<FormExampleApp> {
     );
   }
 }
+

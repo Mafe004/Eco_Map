@@ -3,7 +3,6 @@ import 'package:eco_mapa_3/src/Routes/rutas.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'src/Components/boton_navegacion.dart';
 import 'src/Pages/Usuario/Login.dart';
 
@@ -125,8 +124,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
 
 
 

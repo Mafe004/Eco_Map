@@ -30,7 +30,7 @@ class _BnavigatorState extends State<Bnavigator> {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Noti',
+          label: 'Historial',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.accessibility),
@@ -38,12 +38,16 @@ class _BnavigatorState extends State<Bnavigator> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.add),
-          label: 'Form',
+          label: 'Formulario',
 
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.info),
+          label: 'Información',  // la etiqueta de "Información"
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.add_alert),
-          label: 'Noti',
+          label: 'Notificaciones',
         ),
       ],
     );

@@ -100,16 +100,20 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Detalles del Trueque', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          title: Text('${doc['N-Lugar']}', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Text('Dirección: ${doc['Dirección']}', style: TextStyle(fontSize: 16)),
+                Text('Localidad: ${doc['Localidad']}', style: TextStyle(fontSize: 16)),
                 SizedBox(height: 10),
                 Text('Descripción: ${doc['Detalle']}', style: TextStyle(fontSize: 16)),
                 SizedBox(height: 10),
                 Text('Tipo: ${doc['Tipo']}', style: TextStyle(fontSize: 16)),
+              Text('Horario: ${doc['Horario']}', style: TextStyle(fontSize: 16)),
+
               ],
+
             ),
           ),
           actions: <Widget>[
@@ -188,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: DropdownButton<String>(
         value: selectedType,
-        items: <String>['Todos', 'Pilas', 'Eléctricos', 'Otros'].map((String value) {
+        items: <String>['Todos', 'Pilas', 'Eléctricos'].map((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),

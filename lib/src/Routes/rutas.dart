@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../Pages/Formulario/Form.dart';
 import '../Pages/Home/PaginaPrin.dart';
+import '../Pages/Parte_Edu/informacion.dart';
 import '../Pages/Trueques/Publicacion-trueque.dart';
 import '../Pages/Usuario/Perfil.dart';
-import '../Pages/Parte_Edu/informacion.dart';  // Importacion de Información
 
 class Routes extends StatelessWidget {
   final int index;
