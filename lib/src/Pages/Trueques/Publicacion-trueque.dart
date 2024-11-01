@@ -127,10 +127,10 @@ class MyReportsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Ubicación: ${data['ubicacion'] ?? 'No disponible'}',
+                            'Ubicación: ${data['Direccion'] ?? 'No disponible'}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
-                          Text('Descripción: ${data['Descripcion'] ?? 'No disponible'}'),
+                          Text('Descripción: ${data['DescripcionEstado'] ?? 'No disponible'}'),
                           const SizedBox(height: 8),
 
                           if (imagePaths.isNotEmpty)
