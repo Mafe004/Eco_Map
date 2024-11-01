@@ -205,7 +205,7 @@ class _FormExampleAppState extends State<FormExampleApp> {
       final width = int.parse(resolution.split('x')[0]);
       final height = int.parse(resolution.split('x')[1]);
 
-      if (width > 800 || height > 800) {
+      if (width > 5000 || height > 5000) {
         // Si la resolución de la imagen es mayor que 1024x1024, mostrar un mensaje de error.
         showDialog(
           context: context,

@@ -4,6 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
+import '../../Components/inantivityWrapper.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -135,53 +137,56 @@ class _HomeScreenState extends State<HomeScreen> {
         ? LatLng(_currentPosition!.latitude, _currentPosition!.longitude)
         : LatLng(0, 0);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Eco-Mapa',
-          style: TextStyle(color: Colors.white),
+    return InactivityWrapper( // Aquí envuelve el Scaffold
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Eco-Mapa',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+          centerTitle: true,
         ),
-        backgroundColor: Colors.green,
-        centerTitle: true,
-      ),
-      body: _currentPosition != null
-          ? Stack(
-        children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: initialPosition,
-              zoom: 16.0,
+        body: _currentPosition != null
+            ? Stack(
+          children: [
+            GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: initialPosition,
+                zoom: 16.0,
+              ),
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              markers: Set<Marker>.of(markers.values),
             ),
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            markers: Set<Marker>.of(markers.values),
-          ),
-          Positioned(
-            top: 16,
-            left: 16,
-            child: _buildFilterDropdown(), // Cambiar aquí
-          ),
-          Positioned(
-            top: 16,
-            right: 16,
-            child: _buildMarkerLegend(),
-          ),
-        ],
-      )
-          : Center(
-        child: CircularProgressIndicator(),
+            Positioned(
+              top: 16,
+              left: 16,
+              child: _buildFilterDropdown(),
+            ),
+            Positioned(
+              top: 16,
+              right: 16,
+              child: _buildMarkerLegend(),
+            ),
+          ],
+        )
+            : Center(
+          child: CircularProgressIndicator(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blueAccent,
+          onPressed: () {
+            // Acción para realizar al presionar el botón flotante
+          },
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
-        onPressed: () {
-          // Acción para realizar al presionar el botón flotante
-        },
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
 
   Widget _buildFilterDropdown() {
     return Container(

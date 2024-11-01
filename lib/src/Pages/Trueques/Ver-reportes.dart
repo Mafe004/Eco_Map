@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -34,8 +36,8 @@ class ViewReportPage extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          imagePaths[index], // Cambié a Image.network
+                        child: Image.file(
+                          File(imagePaths[index]),
                           width: 200,
                           height: 150,
                           fit: BoxFit.cover,

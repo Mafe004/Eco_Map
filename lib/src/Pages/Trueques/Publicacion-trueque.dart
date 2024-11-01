@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../Components/inantivityWrapper.dart';
 import 'Ver-reportes.dart';
 
 class InfoPage extends StatefulWidget {
@@ -22,26 +23,29 @@ class _InfoPageState extends State<InfoPage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Usuarios'),
-        bottom: TabBar(
+    return InactivityWrapper( // Envuelve el Scaffold aquí
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Usuarios'),
+          bottom: TabBar(
+            controller: _tabController,
+            tabs: const [
+              Tab(text: 'Historial Trueques'),
+              Tab(text: 'Trueques'),
+            ],
+          ),
+        ),
+        body: TabBarView(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'Historial Trueques'),
-            Tab(text: 'Truques'),
+          children: const [
+            MyReportsPage(),
+            GeneralReportsPage(),
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          MyReportsPage(),
-          GeneralReportsPage(),
-        ],
-      ),
     );
   }
+
 }
 
 class MyReportsPage extends StatelessWidget {
@@ -89,9 +93,6 @@ class MyReportsPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final data = reports[index].data() as Map<String, dynamic>;
                 final List<String> imagePaths = List<String>.from(data['images'] ?? []);
-
-
-
 
                 return GestureDetector(
                   onTap: () {
@@ -168,8 +169,6 @@ class MyReportsPage extends StatelessWidget {
   }
 }
 
-
-
 class GeneralReportsPage extends StatelessWidget {
   const GeneralReportsPage({Key? key}) : super(key: key);
 
@@ -193,9 +192,6 @@ class GeneralReportsPage extends StatelessWidget {
           itemBuilder: (context, index) {
             final data = reports[index].data() as Map<String, dynamic>;
             final List<String> imagePaths = List<String>.from(data['images'] ?? []);
-
-
-            // Obtener el nombre de usuario del informe
             final userName = data['userName'] ?? 'Usuario Desconocido';
 
             return GestureDetector(
@@ -218,11 +214,9 @@ class GeneralReportsPage extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 20,
-                            // Muestra una imagen predeterminada si no hay foto de perfil del usuario
                             backgroundImage: AssetImage('assets/default_profile_picture.png'),
                           ),
                           const SizedBox(width: 10),
-                          // Muestra el nombre de usuario
                           Text(
                             '$userName',
                             style: TextStyle(fontWeight: FontWeight.bold),
