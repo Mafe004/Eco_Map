@@ -26,6 +26,7 @@ class ViewReportPage extends StatelessWidget {
           children: [
             // Mostrar las imágenes
             if (imagePaths.isNotEmpty)
+
               SizedBox(
                 height: 200,
                 child: ListView.builder(
