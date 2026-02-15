@@ -1,16 +1,18 @@
-# eco_mapa_3
+# EcoMapa Colombia (Eco Map)
 
-A new Flutter project.
+Aplicación móvil/web en **Flutter** para visualizar puntos de reciclaje en un **mapa interactivo** y consultar información de cada punto.
 
-## Getting Started
+## Tecnologías
+- Flutter (Dart)
+- Firebase (Auth / Firestore)
+- Google Maps
 
-This project is a starting point for a Flutter application.
+## Funcionalidades
+- Login / Registro
+- Mapa con marcadores de puntos de reciclaje
+- Detalle del punto (información y ubicación)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Ejecutar
+```bash
+flutter pub get
+flutter run
